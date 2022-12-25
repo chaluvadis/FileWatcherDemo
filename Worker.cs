@@ -19,7 +19,6 @@ public class Worker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        Console.WriteLine(directoryConifg.SourceDirectory, directoryConifg.DestinationDirectory);
         while (!stoppingToken.IsCancellationRequested)
         {
             logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
@@ -45,8 +44,10 @@ public class Worker : BackgroundService
                 EnableRaisingEvents = true
             };
 
-            fileSystemWatcher.Changed += (source, fileSystemEventArgs) => OnChanged(fileSystemEventArgs, destinationDirectory);
-            fileSystemWatcher.Created += (source, fileSystemEventArgs) => OnChanged(fileSystemEventArgs, destinationDirectory);
+            fileSystemWatcher.Changed +=
+                        (source, fileSystemEventArgs) => OnChanged(fileSystemEventArgs, destinationDirectory);
+            fileSystemWatcher.Created +=
+                        (source, fileSystemEventArgs) => OnChanged(fileSystemEventArgs, destinationDirectory);
         }
     }
     public void OnChanged(FileSystemEventArgs fileSystemEventArgs, string destinationDirectory)
@@ -59,12 +60,10 @@ public class Worker : BackgroundService
             var destinationFilePath = Path.Combine(destinationDirectory, fileName);
             logger.LogInformation("{fileName}, with path {fullPath} has been created", fileName, fullPath);
             File.Move(fullPath, destinationFilePath);
-            Console.WriteLine($"File moved to {destinationFilePath}");
-            logger.LogInformation("File moved to {destinationFilePath}", destinationFilePath);
+            logger.LogInformation("File moved to {destinationFilePath} at {Now}", destinationFilePath, DateTime.Now);
         }
         catch (IOException ioEx)
         {
-            Console.WriteLine($"Error while processing the file {fileSystemEventArgs.Name}, {ioEx.Message}");
             logger.LogError("{Message} Error occured while processing the file {Name}", ioEx.Message, fileSystemEventArgs.Name);
         }
         catch (Exception ex)
