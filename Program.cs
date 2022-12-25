@@ -16,7 +16,7 @@ namespace FileWatcherDemo
                             services.AddSingleton(options);
                             services.AddHostedService<Worker>();
                         })
-                        // .UseWindowsService()
+                        .UseWindowsService()
                         .Build();
             host.Run();
         }

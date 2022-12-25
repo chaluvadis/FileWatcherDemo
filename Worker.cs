@@ -23,10 +23,11 @@ public class Worker : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            await Task.Delay(1000, stoppingToken);
             string sourceDirectory = directoryConifg.SourceDirectory;
             string destinationDirectory = directoryConifg.DestinationDirectory;
             string filter = directoryConifg.Filter;
+            int delayTime = directoryConifg.DelayTime;
+            await Task.Delay(delayTime, stoppingToken);
 
             var fileSystemWatcher = new FileSystemWatcher
             {
