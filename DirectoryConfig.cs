@@ -5,4 +5,6 @@ public class DirectoryConifg
     public string DestinationDirectory { get; set; }
     public string Filter { get; set; }
     public int DelayTime { get; set; }
+    public int ThresholdCount { get; set; }
+    public int ThreasholdTime { get; set; }
 }
