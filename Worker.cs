@@ -20,7 +20,7 @@ public class Worker : BackgroundService
     {
         var timeElapsed = Math.Round((DateTime.Now - Utility.GetProcessInitiatedTime()).TotalMinutes, 0);
         var processedFilesCount = Utility.GetProcessedFilesCount();
-        var isTimeElapsed = timeElapsed <= directoryConifg.ThreasholdTime;
+        var isTimeElapsed = timeElapsed <= directoryConifg.ThresholdTime;
         var isThresholdReached = processedFilesCount <= directoryConifg.ThresholdCount;
         return isTimeElapsed && isThresholdReached;
     }
