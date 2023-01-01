@@ -10,8 +10,18 @@ Update the source and destination directory information in appsettings.json.
 "DirectoryConifg": {
     "SourceDirectory": "/Users/hola/downloads/source",
     "DestinationDirectory": "/Users/hola/downloads/resumes",
-    "Filter": "*.*"
+    "Filter": "*.*",
+    "DelayTime": 120000, // number of microseconds. 1sec = 1000
+    "ThresholdCount": 5,// thresh hold count
+    "ThresholdTime": 2 // minutes
   }
+```
+
+Configurations:
+```
+  1. DelayTime - 120000 (2 Minutes) service runs every 2 minutes
+  2. ThresholdTime - 2 Minutes
+  3. ThresholdCount - 5 (after processing 5 files in 2 minutes the service will not move the files.)
 ```
 
 Run the following commands.
